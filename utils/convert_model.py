@@ -185,15 +185,14 @@ if __name__ == "__main__":
     target = str(target_folder / "rust_model.ot")
 
     toml_location = (Path(__file__).resolve() / ".." / ".." / "Cargo.toml").resolve()
-    cargo_args = [
-        "cargo",
-        "run",
+    cargo_args = ["cargo", "run"]
+    if args.download_libtorch:
+        cargo_args += ["--features", "download-libtorch"]
+    cargo_args.extend([
         "--bin=convert-tensor",
         "--manifest-path=%s" % toml_location,
         "--",
         source,
         target,
-    ]
-    if args.download_libtorch:
-        cargo_args += ["--features", "download-libtorch"]
+    ])
     subprocess.run(cargo_args)
