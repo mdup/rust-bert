@@ -56,7 +56,7 @@ impl SentenceEmbeddingsOption {
                 p,
                 &(config.try_into()?),
             )),
-            ModelType::Roberta => Roberta(RobertaForSentenceEmbeddings::new_with_optional_pooler(
+            ModelType::Roberta | ModelType::XLMRoberta => Roberta(RobertaForSentenceEmbeddings::new_with_optional_pooler(
                 p,
                 &(config.try_into()?),
                 false,

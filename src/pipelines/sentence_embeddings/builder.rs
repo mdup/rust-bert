@@ -91,6 +91,10 @@ impl SentenceEmbeddingsBuilder<Local> {
                 model_dir.join("vocab.json"),
                 Some(model_dir.join("merges.txt")),
             ),
+            ModelType::XLMRoberta => (
+                model_dir.join("sentencepiece.bpe.model"),
+                None,
+            ),
             ModelType::Albert => (model_dir.join("spiece.model"), None),
             ModelType::T5 => (model_dir.join("spiece.model"), None),
             _ => {

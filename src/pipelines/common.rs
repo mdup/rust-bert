@@ -171,6 +171,7 @@ pub enum ModelType {
     DebertaV2,
     #[serde(alias = "roberta")]
     Roberta,
+    #[serde(alias = "xlm-roberta")]
     XLMRoberta,
     Electra,
     Marian,
