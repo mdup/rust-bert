@@ -52,6 +52,7 @@ from pathlib import Path
 from typing import Dict
 
 import numpy as np
+import safetensors.torch
 import torch
 from numpy.lib.format import write_array
 from numpy.lib.npyio import zipfile_factory
@@ -136,7 +137,12 @@ if __name__ == "__main__":
                 logging.info(f"Processing source file {source_file}...")
                 nps = {}
                 source_file = Path(source_file)
-                weights = torch.load(str(source_file), map_location="cpu")
+                if source_file.suffix == ".safetensors":
+                    with open(source_file, 'rb') as f:
+                        data = f.read()
+                        weights = safetensors.torch.load(data)
+                else:
+                    weights = torch.load(str(source_file), map_location="cpu")
 
                 for k, v in weights.items():
                     k = k.replace("gamma", "weight").replace("beta", "bias")
